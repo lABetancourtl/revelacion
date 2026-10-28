@@ -146,7 +146,8 @@ h1 span{display:block;font-size:.7em;margin-top:4px}
 .love{margin:4px 0 0;font-size:1rem}
 .sign{font-family:var(--script);font-size:2.5rem;font-weight:700;margin:2px 0 0}
 
-.bottom{position:relative;height:150px;margin:6px -26px -30px}
+/* La altura sigue la proporción del oso (276×359 al 40% del ancho) para que quede debajo de la firma */
+.bottom{position:relative;aspect-ratio:100/54;margin:10px -26px -30px}
 .oso2{left:-4px;bottom:0;width:40%;animation-delay:-1.5s}
 .oso3{right:-2px;bottom:4px;width:38%;animation-delay:-4s}
 
@@ -182,6 +183,67 @@ h1 span{display:block;font-size:.7em;margin-top:4px}
 /* Confeti */
 .confetti{position:fixed;top:-30px;z-index:30;pointer-events:none;animation:fall linear forwards}
 @keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r))}}
+
+/* ---------- Adaptación por dispositivo ---------- */
+/* Celulares pequeños */
+@media (max-width:380px){
+  body{padding:10px 8px 28px}
+  .card{padding:0 18px 26px;border-radius:24px}
+  .top{margin:0 -18px;height:165px}
+  .bottom{margin:10px -18px -26px}
+  .when{grid-template-columns:1fr;gap:14px}
+  .when .item{justify-content:flex-start}
+  .when .divider{display:none}
+  .place{padding:12px 14px}
+  .place .go{display:none}
+  .count{gap:6px}
+  .count div{flex:1;min-width:0}
+  .count span{font-size:1.3rem}
+  .choice{padding:12px 20px}
+  .sign{font-size:2.2rem}
+}
+/* Tablet */
+@media (min-width:640px){
+  body{padding:40px 24px 60px}
+  .card{max-width:580px;padding:0 44px 40px;border-radius:34px}
+  .card::before{inset:12px;border-radius:24px}
+  .hangers{height:190px}
+  .top{height:250px;margin:0 -44px}
+  .bottom{margin:14px -44px -40px}
+  .invite{font-size:1.2rem}
+  h1{font-size:5.2rem}
+  .msg{font-size:1.1rem;max-width:40ch}
+  .sep b{width:110px}
+  .when strong{font-size:1.3rem}
+  .place{max-width:400px}
+  .count{gap:12px}
+  .count div{min-width:80px;padding:14px 6px 10px}
+  .count span{font-size:1.9rem}
+  .count em{font-size:.85rem}
+  .guess h2{font-size:2.6rem}
+  .guess p{font-size:1.05rem}
+  .choice{font-size:1.15rem;padding:14px 40px}
+  .results{max-width:420px;margin-left:auto;margin-right:auto}
+  .thanks,.love{font-size:1.1rem}
+  .sign{font-size:3rem}
+  .cover img{width:300px}
+  .cover .names{font-size:3.2rem}
+}
+/* PC */
+@media (min-width:1024px){
+  body{padding:56px 24px 80px}
+  .card{max-width:680px;padding:0 56px 48px}
+  .top{height:290px;margin:0 -56px}
+  .bottom{margin:16px -56px -48px}
+  h1{font-size:6rem}
+  .msg{font-size:1.15rem;max-width:44ch}
+  .count div{min-width:92px}
+  .count span{font-size:2.1rem}
+  .guess h2{font-size:2.9rem}
+  .sign{font-size:3.3rem}
+  .cover img{width:340px}
+  .cover .names{font-size:3.6rem}
+}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
@@ -398,7 +460,7 @@ h1 span{display:block;font-size:.7em;margin-top:4px}
     document.getElementById('txtB').textContent = 'Niño: ' + nino + (nino === 1 ? ' voto' : ' votos');
     document.getElementById('txtG').textContent = 'Niña: ' + nina + (nina === 1 ? ' voto' : ' votos');
     document.getElementById('txtTotal').textContent =
-      total ? total + (total === 1 ? ' persona ha apostado' : ' personas han apostado') : 'Sé la primera persona en apostar';
+      total ? total + (total === 1 ? ' persona ha votado' : ' personas han votado') : 'Sé la primera persona en votar';
   }
 
   // Guarda el voto (una sola vez por celular)
