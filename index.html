@@ -445,11 +445,11 @@ h1 span{display:block;font-style:italic;font-weight:400;font-size:.62em;margin-t
 
   // Identificador único de este celular
   function deviceId(){
-    let id = localStorage.getItem('device_id');
+    let id = localStorage.getItem('device_id_v2');
     if(!id){
       id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
          : Date.now().toString(36) + Math.random().toString(36).slice(2);
-      localStorage.setItem('device_id', id);
+      localStorage.setItem('device_id_v2', id);
     }
     return id;
   }
@@ -490,7 +490,7 @@ h1 span{display:block;font-style:italic;font-weight:400;font-size:.62em;margin-t
     note.textContent = 'Guardando tu apuesta…';
     const { error } = await sb.from('votos').insert({ device_id: deviceId(), prediccion: g });
     if(error && error.code === '23505'){        // este celular ya había votado
-      localStorage.setItem('apuesta', 'ya');
+      localStorage.setItem('apuesta_v2', 'ya');
       lock(null, 'Ya habías hecho tu apuesta desde este celular.');
       loadCounts();
       return;
@@ -500,14 +500,14 @@ h1 span{display:block;font-style:italic;font-weight:400;font-size:.62em;margin-t
       note.textContent = 'No se pudo guardar tu apuesta. Inténtalo de nuevo.';
       return;
     }
-    localStorage.setItem('apuesta', g);
+    localStorage.setItem('apuesta_v2', g);
     lock(g);
     loadCounts();
   }
 
   btns.forEach(b => b.addEventListener('click', () => vote(b.dataset.g)));
 
-  const saved = localStorage.getItem('apuesta');
+  const saved = localStorage.getItem('apuesta_v2');
   if(saved === 'ya') lock(null, 'Ya habías hecho tu apuesta desde este celular.');
   else if(saved) lock(saved);
 
